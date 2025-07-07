@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reset Password</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    function resetPassword() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("newPass").value;
+      const confirm = document.getElementById("confirmPass").value;
+
+      const msgBox = document.getElementById("toast");
+
+      if (!username || !password || !confirm) {
+        showToast("Fadlan dhammee dhammaan meelaha.", "red");
+        return;
+      }
+
+      const usernameRe = /^[a-zA-Z0-9_]{3,}$/;
+      if (!usernameRe.test(username)) {
+        showToast("Username sax ah geli.", "red");
+        return;
+      }
+
+      if (password !== confirm) {
+        showToast("Labada password isma mid aha.", "red");
+        return;
+      }
+
+      showToast("Password si guul leh ayaa loo cusboonaysiiyay!", "green");
+      setTimeout(() => window.location.href = "index.html", 3000);
+    }
+
+    function showToast(text, color) {
+      const toast = document.getElementById("toast");
+      toast.textContent = text;
+      toast.className =
+        `fixed top-4 right-4 px-4 py-2 rounded shadow-lg text-white bg-${color}-600`;
+      toast.style.display = "block";
+
+      setTimeout(() => (toast.style.display = "none"), 3500);
+    }
+  </script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-8 rounded shadow-md w-80">
+    <h2 class="text-2xl font-bold mb-4 text-center">Reset Password</h2>
+
+    <input id="username" type="text" placeholder="Username"
+      class="w-full mb-3 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+    <input id="newPass" type="password" placeholder="New password"
+      class="w-full mb-3 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+    <input id="confirmPass" type="password" placeholder="Confirm password"
+      class="w-full mb-5 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+    <button onclick="resetPassword()"
+      class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      Save new password
+    </button>
+  </div>
+
+  <!-- Toast box (bilow ahaan qarsoon) -->
+  <div id="toast" style="display:none;"></div>
+</body>
+</html>
